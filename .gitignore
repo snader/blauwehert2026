@@ -1,0 +1,5 @@
+**/installed
+/init/loc.init.inc.php
+*.fix.php
+.htaccess
+.htaccess_online
