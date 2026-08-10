@@ -1,69 +1,56 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= _e($oPageLayout->sWindowTitle) ?> | <?= _e(CLIENT_NAME) ?></title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Artisan coffee roasters dedicated to sourcing, roasting, and serving the finest specialty coffees from around the world.">
+  <title>Roast & Co.</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo CLIENT_HTTP_URL; ?>/themes/default/css/styles.css?v=2">
+  <script>
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 </head>
-<body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
+<body>
+
+
+
   <!-- Navbar -->
   <!-- Header -->
   <?php include getSiteSnippet('headers/header_frontend'); ?>
         <!-- /Header -->
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="/themes/default/images/logo.png" alt="MB CMS" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">MB</span>
-    </a>
-
-    <!-- Sidebar -->
-    <?php include getSiteSnippet('navigationFixedLte'); ?>
-    
-    <!-- /.sidebar -->
-  </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+ <main>
 
     <?php
     // include the actual page with changable content
     include_once $oPageLayout->sViewPath;
     ?>
     
-  </div>
+ </main>
   <!-- /.content-wrapper -->
 
   <?php include getSiteSnippet('footers/footer_frontend'); ?>
   
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<!-- jQuery 
+<script src="../../plugins/jquery/jquery.min.js"></script>-->
+<script src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/js/script.js"></script>
 
 </body>
 </html>

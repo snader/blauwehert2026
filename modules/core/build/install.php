@@ -2478,6 +2478,13 @@ if (!$oDb->columnExists('users', 'color')) {
     }
 }
 
+if ($oDb->tableExists('modules') && !$oDb->columnExists('modules', 'collapseName')) {
+    $aLogs[$sModuleName]['errors'][] = ' Missing column collapseName';
+    if ($bInstall) {
+        $oDb->addColumn('modules', 'collapseName', 'VARCHAR', 250, 'name');
+    }
+}
+
 // check robots.txt existance and content
 if (!file_exists(DOCUMENT_ROOT . '/robots.txt')) {
     $aLogs['core']['errors'][] = 'Robots.txt does not exist in root';

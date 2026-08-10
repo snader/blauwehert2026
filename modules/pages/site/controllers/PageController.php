@@ -14,11 +14,6 @@ class PageController extends CoreController implements MaintenanceInterface
     {
         parent::init();
 
-        #redirect to account page for signin if not signed in
-        if (empty(Customer::getCurrent()) || !is_numeric(Customer::getCurrent()->customerId)) {
-            http_redirect(getBaseUrl() . '/account');
-        }
-
         $oPageLayout = $this->getRenderEngine()
             ->setTemplate('layout', 'core')
             ->getLayout();
@@ -60,8 +55,6 @@ class PageController extends CoreController implements MaintenanceInterface
                     'aFiles'       => $oPage->getFiles(),
                     'aLinks'       => $oPage->getLinks(),
                     'aCards'       => moduleExists('cards') ? $oPage->getCards() : null,
-                    'oForm'        => moduleExists('forms') ? $oPage->getForm() : null,
-                    'aWhitePapers' => moduleExists('whitePapers') ? $oPage->getWhitePapers() : null,
                     'aUsps'        => moduleExists('usps') ? $oPage->getUsps() : null,
                 ]
             );
