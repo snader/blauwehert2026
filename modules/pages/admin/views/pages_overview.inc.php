@@ -1,50 +1,33 @@
-<div class="likeTopRow cf">
-    <?php include_once getAdminSnippet('localeSelect'); ?>
-</div>
-
-<div class="likeTopRow cf">
-    <h2><?= sysTranslations::get('pages_all') ?></h2>
-    <div class="right">
-        <a class="addBtn textRight" href="<?= ADMIN_FOLDER ?>/<?= http_get('controller') ?>/toevoegen"><?= sysTranslations::get('pages_add_main') ?></a><br/>
-        <a class="changeOrderBtn textRight" href="<?= ADMIN_FOLDER ?>/<?= http_get('controller') ?>/structuur-wijzigen"><?= sysTranslations::get('pages_change_structure') ?></a>
-        <br/><a class="copyBtn textRight" href="<?= ADMIN_FOLDER ?>/<?= http_get('controller') ?>/copy-structure"><?= sysTranslations::get('pages_copy_structure') ?></a>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <h1 class="m-0"><i aria-hidden="true" class="fa fa-file-alt"></i>&nbsp;&nbsp;<?= sysTranslations::get('pages_menu') ?></h1>
+            </div>
+        </div>
     </div>
 </div>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><?= sysTranslations::get('pages_all') ?></h3>
+                    <div class="card-tools">
+                        <?php include_once getAdminSnippet('localeSelect'); ?>
+                        <a class="btn btn-default btn-sm" href="<?= ADMIN_FOLDER ?>/<?= http_get('controller') ?>/toevoegen"><?= sysTranslations::get('pages_add_main') ?></a>
+                        <a class="btn btn-default btn-sm" href="<?= ADMIN_FOLDER ?>/<?= http_get('controller') ?>/structuur-wijzigen"><?= sysTranslations::get('pages_change_structure') ?></a>
+                        <a class="btn btn-default btn-sm" href="<?= ADMIN_FOLDER ?>/<?= http_get('controller') ?>/copy-structure"><?= sysTranslations::get('pages_copy_structure') ?></a>
+                    </div>
+                </div>
+                <div class="card-body">
+
 <?php
-# list pages in unordered list
-
-function makeListTree($aPages, $iLevel, $iMaxLevels)
+# list pages in a Bootstrap table
+function renderPageRows($aPages, $iLevel, $iMaxLevels)
 {
-    if (count($aPages) > 0 && $iLevel == 1) {
-        echo '<ol class="nestedSortable level' . $iLevel . '">';
-    } elseif (count($aPages) > 0) {
-        echo '<ol class="level' . $iLevel . '">';
-    }
-
-    $iT = 0;
     foreach ($aPages AS $oPage) {
-        echo '<li id="page_' . $oPage->pageId . '">';
-
-        $sClasses = '';
-        if ($iT > 0 && $iLevel == 1) {
-            $sClasses .= ' mainPage';
-        }
-        if ($iT == 0 && $iLevel == 1) {
-            $sClasses .= ' first-mainPage';
-        }
-        if ($iT > 0 && $iLevel > 1) {
-            $sClasses .= ' sub';
-        }
-        if ($iT == 0 && $iLevel > 1) {
-            $sClasses .= ' first-sub';
-        }
-
-        # add sub page
-        echo '<div class="' . $sClasses . (($iLevel < $iMaxLevels && $oPage->mayHaveSub()) ? '"><a class="action_icon add_icon" alt="' . sysTranslations::get('pages_add_sub') . '" title="' . sysTranslations::get(
-                    'pages_add_sub_tooltip'
-                ) . '" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/toevoegen?parentPageId=' . $oPage->pageId . '"></a>' : ' no-action-icons">');
-
         $sComment = '';
         if ($oPage->name == 'home') {
             $sComment .= ($sComment != '' ? ', ' : '') . sysTranslations::get('global_homepage');
@@ -56,54 +39,73 @@ function makeListTree($aPages, $iLevel, $iMaxLevels)
             $sComment .= ($sComment != '' ? ', ' : '') . sysTranslations::get('global_not_indexable');
         }
 
-        echo ($oPage->getShortTitle() ? $oPage->getShortTitle() : $oPage->title) . ($sComment ? '<span class="brackedComment"> (' . $sComment . ')</span>' : '');
+        $sTitle = ($oPage->getShortTitle() ? $oPage->getShortTitle() : $oPage->title);
+        if ($sComment) {
+            $sTitle .= ' <span class="text-muted">(' . $sComment . ')</span>';
+        }
 
-        echo '<div class="actionIconsHolder">';
+        echo '<tr>';
+        echo '<td class="align-middle" style="padding-left: ' . (($iLevel - 1) * 20) . 'px;">' . $sTitle . '</td>';
+        echo '<td class="align-middle text-right">';
+
+        if ($iLevel < $iMaxLevels && $oPage->mayHaveSub()) {
+            echo '<a class="btn btn-info btn-sm" title="' . sysTranslations::get('pages_add_sub') . '" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/toevoegen?parentPageId=' . $oPage->pageId . '"><i class="fas fa-plus"></i></a> ';
+        }
 
         if ($oPage->isOnlineChangeable()) {
-            # online offline button
-            echo '<a id="page_' . $oPage->pageId . '_online_1" pageTitle="' . _e($oPage->title) . '" title="' . sysTranslations::get(
-                    'pages_offline_tooltip'
-                ) . '" class="action_icon ' . ($oPage->online ? '' : 'hide') . ' online_icon" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/ajax-setOnline/' . $oPage->pageId . '/?online=0&' . CSRFSynchronizerToken::query() . '"></a>';
-            echo '<a id="page_' . $oPage->pageId . '_online_0" pageTitle="' . _e($oPage->title) . '" title="' . sysTranslations::get(
-                    'pages_online_tooltip'
-                ) . '" class="action_icon ' . ($oPage->online ? 'hide' : '') . ' offline_icon" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/ajax-setOnline/' . $oPage->pageId . '/?online=1&' . CSRFSynchronizerToken::query() . '"></a>';
+            echo '<a id="page_' . $oPage->pageId . '_online_1" pageTitle="' . _e($oPage->title) . '" title="' . sysTranslations::get('pages_offline_tooltip') . '" class="btn btn-success btn-sm ' . ($oPage->online ? '' : 'd-none') . ' offline_icon" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/ajax-setOnline/' . $oPage->pageId . '/?online=0&' . CSRFSynchronizerToken::query() . '"><i class="fas fa-eye"></i></a> ';
+            echo '<a id="page_' . $oPage->pageId . '_online_0" pageTitle="' . _e($oPage->title) . '" title="' . sysTranslations::get('pages_online_tooltip') . '" class="btn btn-secondary btn-sm ' . ($oPage->online ? 'd-none' : '') . ' online_icon" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/ajax-setOnline/' . $oPage->pageId . '/?online=1&' . CSRFSynchronizerToken::query() . '"><i class="fas fa-eye-slash"></i></a> ';
         } else {
-            echo '<span title="' . sysTranslations::get('pages_not_offline') . '" class="action_icon online_icon grey"></span>';
+            echo '<button class="btn btn-default btn-sm" title="' . sysTranslations::get('pages_not_offline') . '" disabled><i class="fas fa-eye"></i></button> ';
         }
-        #edit button
+
         if ($oPage->isEditable()) {
-            echo '<a title="' . sysTranslations::get('pages_edit') . '" class="action_icon edit_icon" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/bewerken/' . $oPage->pageId . '"></a>';
+            echo '<a title="' . sysTranslations::get('pages_edit') . '" class="btn btn-primary btn-sm" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/bewerken/' . $oPage->pageId . '"><i class="fas fa-pencil-alt"></i></a> ';
         } else {
-            echo '<a title="' . sysTranslations::get('pages_not_editable') . '" class="action_icon edit_icon grey" href="#"></a>';
+            echo '<button title="' . sysTranslations::get('pages_not_editable') . '" class="btn btn-default btn-sm" disabled><i class="fas fa-pencil-alt"></i></button> ';
         }
 
-        # delete button
         if ($oPage->isDeletable()) {
-            echo '<a onclick="return confirmChoice(\'' . $oPage->title . '\');" class="action_icon delete_icon" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/verwijderen/' . $oPage->pageId . '?' . CSRFSynchronizerToken::query() . '"></a>';
+            echo '<a onclick="return confirmChoice(\'' . _e($oPage->title) . '\');" class="btn btn-danger btn-sm" href="' . ADMIN_FOLDER . '/' . http_get('controller') . '/verwijderen/' . $oPage->pageId . '?' . CSRFSynchronizerToken::query() . '"><i class="fas fa-trash"></i></a>';
         } else {
-            echo '<a class="action_icon delete_icon grey" href="#" title="' . sysTranslations::get('pages_not_deletable') . '"></a>';
+            echo '<button class="btn btn-default btn-sm" title="' . sysTranslations::get('pages_not_deletable') . '" disabled><i class="fas fa-trash"></i></button>';
         }
 
-        echo '</div>';
-        echo '</div>';
+        echo '</td>';
+        echo '</tr>';
 
-        makeListTree($oPage->getSubPages('all'), $iLevel + 1, $iMaxLevels); //call function recursive
-        echo '</li>';
-        $iT++;
-    }
-    if (count($aPages) > 0) {
-        echo '</ol>';
+        renderPageRows($oPage->getSubPages('all'), $iLevel + 1, $iMaxLevels);
     }
 }
 
-if (count($aAllLevel1Pages) == 0) {
-    echo '<div class="likeSorterTr"><i>' . sysTranslations::get('pages_no_pages') . '</i></div>';
-}
-
-# start recursive displaying pages
-makeListTree($aAllLevel1Pages, 1, $iMaxLevels);
 ?>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><?= sysTranslations::get('pages_name') ?: 'Pagina' ?></th>
+                <th style="width: 320px;">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if (count($aAllLevel1Pages) == 0) {
+                echo '<tr><td colspan="2"><i>' . sysTranslations::get('pages_no_pages') . '</i></td></tr>';
+            } else {
+                renderPageRows($aAllLevel1Pages, 1, $iMaxLevels);
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>
+
 <?php
 
 $sPageOnlineMsg     = sysTranslations::get('pages_online');

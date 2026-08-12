@@ -732,9 +732,9 @@ function getUrlProtocol()
 /**
  * returns the base url
  *
- * @param int $iLocaleId
+ * @param ACMS\Locale|null $oLocale
  */
-function getBaseUrl(ACMS\Locale $oLocale = null)
+function getBaseUrl(?ACMS\Locale $oLocale = null)
 {
     $sProtocol = getUrlProtocol();
 

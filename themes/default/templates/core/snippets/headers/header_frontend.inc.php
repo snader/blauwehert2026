@@ -8,8 +8,8 @@
           </svg>
         </div>
         <div>
-          <span class="brand-name">Roast &amp; Co.</span>
-          <span class="brand-tagline">Specialty Coffee Roasters</span>
+          <span class="brand-name">'t Blauwe Hert</span>
+          <span class="brand-tagline">Ontdek onze bieren. Van blond tot zwaar, altijd met karakter.</span>
         </div>
       </a>
 
