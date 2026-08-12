@@ -23,7 +23,7 @@
     min-height: 100vh;
 
     /* De achtergrondinstellingen */
-    background-image: url('/dist/img/login_back.jpg');
+    /* background-image: url('/dist/img/login_back.jpg'); */
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
@@ -35,7 +35,8 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="/"><img style="width:auto; max-height:100px;margin-top:10px;margin-bottom:20px;" src="<?= getSiteImage('mb-logo.png') ?>" alt="<?= CLIENT_NAME ?>"/></a>
+    <a href="/"><img style="width:auto;margin-top:10px;margin-bottom:20px;" src="<?= getSiteImage('bh-logo.png') ?>" alt="<?= CLIENT_NAME ?>" /></a>
+    </div>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -63,7 +64,7 @@
                 <?= CSRFSynchronizerToken::field() ?>
             
                 <div class="form-group text-center">
-                    <label>Your authenticator code</label>
+                    <label>Your authenticator code</label><br />
                     <input type="text" class="class="form-control"" name="code" autocomplete="off" autofocus/>
                 </div>
                 <div class="col-12">

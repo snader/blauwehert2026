@@ -30,7 +30,8 @@
     min-height: 100vh;
 
     /* De achtergrondinstellingen */
-    background-image: url('/dist/img/login_back.jpg');
+    /* background-image: url('/dist/img/login_back.jpg'); */
+
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
@@ -49,7 +50,7 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="/"><img style="width:auto; max-height:100px;margin-top:10px;margin-bottom:20px;" src="<?= getSiteImage('mb-logo.png') ?>" alt="<?= CLIENT_NAME ?>" /></a>
+      <a href="/"><img style="width:auto;margin-top:10px;margin-bottom:20px;" src="<?= getSiteImage('bh-logo.png') ?>" alt="<?= CLIENT_NAME ?>" /></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -60,7 +61,7 @@
         <div class="alert alert-danger errorColor " style="text-align: left; margin-bottom:10px;">Login mislukt : verkeerde logingegevens</b></div>
       <?php } ?>
 
-      <strong>BREWFILL login</strong></p>
+      <strong>'t Blauwe Hert login</strong></p>
 
 
       <?php
