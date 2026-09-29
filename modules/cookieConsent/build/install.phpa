@@ -1,0 +1,250 @@
+<?php
+
+// check folders existance and writing rights
+$aCheckRightFolders = [
+];
+
+// check dependencies
+$aDependencyModules = [
+    'core',
+    'pages',
+];
+
+$aNeededAdminControllerRoutes = [
+    'cookie-consent'      => [
+        'module'     => 'cookieConsent',
+        'controller' => 'cookieConsent',
+    ],
+];
+
+$aNeededClassRoutes = [];
+
+$aNeededSiteControllerRoutes = [];
+
+$aNeededModulesForMenu = [
+    [
+        'name'             => 'cookie-consent',
+        'icon'             => 'fa-exclamation ',
+        'linkName'         => 'cc_menu',
+        'parentModuleName' => 'instellingen',
+        'moduleActions'    => [
+            ['displayName' => 'Volledig', 'name' => 'cc_full'],
+        ],
+    ],
+];
+
+$aNeededTranslations = [
+    'nl' => [
+        ['label' => 'cc_menu', 'text' => 'Cookiemelding'],
+        ['label' => 'cc_full', 'text' => 'Cookiemelding'],
+        ['label' => 'cc_enabled', 'text' => 'Tonen'],
+        ['label' => 'cc_theme', 'text' => 'Thema'],
+        ['label' => 'cc_bgcolor', 'text' => 'Achtergrondkleur'],
+        ['label' => 'cc_textcolor', 'text' => 'Tekstkleur'],
+        ['label' => 'cc_btnbgcolor', 'text' => 'Achtergrondkleur accepteren'],
+        ['label' => 'cc_btntextcolor', 'text' => 'Tekstkleur accepteren'],
+        ['label' => 'cc_appearance', 'text' => 'Uiterlijk'],
+        ['label' => 'cc_themeeditor', 'text' => 'Thema aanpassen'],
+        ['label' => 'cc_existing_pages', 'text' => "Gevonden pagina's"],
+        ['label' => 'cc_missing_pages', 'text' => "De volgende talen hebben geen pagina voor de cookie- & privacyverklaring"],
+        ['label' => 'cc_preview', 'text' => 'Voorbeeld'],
+        ['label' => 'cc_preview_desc', 'text' => 'Hieronder zie je een voorbeeld van de cookiemelding.'],
+        ['label' => 'cc_consentpage', 'text' => 'Pagina voor Cookie- & privacyverklaring'],
+        ['label' => 'cc_btntextcolor', 'text' => 'Tekstkleur accepteren'],
+        ['label' => 'cc_themes_landgoedvoornedvoorn', 'text' => 'LandgoedVoorn (default)'],
+        ['label' => 'cc_themes_electric', 'text' => 'Elektrisch'],
+        ['label' => 'cc_themes_sea', 'text' => 'Diepzee'],
+        ['label' => 'cc_themes_wine', 'text' => 'Wijnrood'],
+        ['label' => 'cc_themes_cornee', 'text' => 'Cörnee'],
+        ['label' => 'cc_themes_candy', 'text' => 'Snoep'],
+        ['label' => 'cc_themes_forest', 'text' => 'Bos'],
+        ['label' => 'cc_themes_custom', 'text' => 'Aangepast'],
+    ],
+];
+
+// site translations (front end)
+$aNeededSiteTranslations = [
+    'nl' => [
+        [
+            'label'    => 'cc_text',
+            'text'     => 'Om jouw bezoek aan onze website nóg makkelijker en persoonlijker te maken zetten we cookies in. Met deze cookies kunnen wij en derde partijen informatie over jou verzamelen en jouw internetgedrag binnen (en mogelijk ook buiten) onze website volgen.',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_dismiss',
+            'text'     => 'Afwijzen',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_accept',
+            'text'     => 'Accepteren',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_details',
+            'text'     => 'Meer informatie',
+            'editable' => 1,
+        ],
+    ],
+    'en' => [
+        [
+            'label'    => 'cc_text',
+            'text'     => 'To offer you a better and more personal website experience, we use cookies. With these cookies we and third parties offer you personal content on our own website as well as on other platforms, that makes your day! ',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_dismiss',
+            'text'     => 'I do not want this',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_accept',
+            'text'     => 'Totally fine',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_details',
+            'text'     => 'More information',
+            'editable' => 1,
+        ],
+    ],
+    'de' => [
+        [
+            'label'    => 'cc_text',
+            'text'     => 'Um Ihren Besuch auf unserer Website noch einfacher und persönlicher zu gestalten, verwenden wir Cookies. Mit diesen Cookies können wir und Dritteparteien Informationen über Sie sammeln und Ihr Internetverhalten innerhalb (und möglicherweise auch außerhalb) unserer Website verbessern',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_dismiss',
+            'text'     => 'Ablehnen',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_accept',
+            'text'     => 'Akzeptieren',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_details',
+            'text'     => 'Mehr Informationen',
+            'editable' => 1,
+        ],
+    ],
+    'fr' => [
+        [
+            'label'    => 'cc_text',
+            'text'     => 'Pour rendre votre visite sur notre site encore plus simple et plus personnelle, nous utilisons des cookies. Avec ces cookies, nous et les tiers peuvent collecter des informations à votre sujet et surveiller votre comportement sur Internet au sein (et peut-être aussi à l\'extérieur) de notre site Web.',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_dismiss',
+            'text'     => 'Rejeter',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_accept',
+            'text'     => 'Accepter',
+            'editable' => 1,
+        ],
+        [
+            'label'    => 'cc_details',
+            'text'     => 'Plus d\'informations',
+            'editable' => 1,
+        ],
+    ],
+];
+
+if(moduleExists('pages')) {
+    foreach (LocaleManager::getLocalesByFilter(['showAll' => true]) as $oLocale) {
+        if (!($oPageCookiePolicy = PageManager::getPageByName('cookiepolicy', $oLocale->languageId))) {
+            $aLogs[$sModuleName]['errors'][] = 'Missing page `Cookie Policy` for language `' . strtoupper($oLocale->getLanguage()->code) . '`';
+            if ($bInstall) {
+                $oPageCookiePolicy             = new Page();
+                $oPageCookiePolicy->languageId = $oLocale->languageId;
+                $oPageCookiePolicy->name       = 'cookiepolicy';
+                $oPageCookiePolicy->title      = 'Cookie Policy';
+                $oPageCookiePolicy->content    = '<p>There is currently no cookie policy available for this website.</p><br><p>However, if you\'d like to reset your cookie preferences <a href="?reset-cookies=1">you can click this link to reset your cookie preferences for this website.</a></p>';
+                $oPageCookiePolicy->shortTitle = 'Cookie Policy';
+                $oPageCookiePolicy->setInFooter(true);
+                $oPageCookiePolicy->setControllerPath('/modules/pages/site/controllers/page.cont.php');
+                $oPageCookiePolicy->setInMenu(0);
+                $oPageCookiePolicy->setIndexable(0);
+                $oPageCookiePolicy->setOnlineChangeable(0);
+                $oPageCookiePolicy->setDeletable(0);
+                $oPageCookiePolicy->setMayHaveSub(0);
+                $oPageCookiePolicy->setLockUrlPath(1);
+                $oPageCookiePolicy->setLockParent(1);
+                $oPageCookiePolicy->setHideImageManagement(1);
+                $oPageCookiePolicy->setHideFileManagement(1);
+                $oPageCookiePolicy->setHideLinkManagement(1);
+                $oPageCookiePolicy->setHideVideoLinkManagement(1);
+                if ($oPageCookiePolicy->isValid()) {
+                    PageManager::savePage($oPageCookiePolicy);
+                } else {
+                    _d($oPageCookiePolicy->getInvalidProps());
+                    die('Can\'t create page `cookiepolicy for locale`' . strtoupper($oLocale->getLanguage()->code));
+                }
+            }
+        }
+    }
+}
+
+if(!Settings::exists('cc_enabled')){
+    $aLogs[$sModuleName]['errors'][] = 'Missing setting `cc_enabled`';
+    if($bInstall){
+        $oSetting = new Setting();
+        $oSetting->name = "cc_enabled";
+        $oSetting->value = 1;
+        SettingManager::saveSetting($oSetting);
+    }
+}
+
+if(!Settings::exists('cc_bgcolor')){
+    $aLogs[$sModuleName]['errors'][] = 'Missing setting `cc_bgcolor`';
+    if($bInstall){
+        $oSetting = new Setting();
+        $oSetting->name = "cc_bgcolor";
+        $oSetting->value = "#212020";
+        SettingManager::saveSetting($oSetting);
+    }
+}
+
+if(!Settings::exists('cc_textcolor')){
+    $aLogs[$sModuleName]['errors'][] = 'Missing setting `cc_textcolor`';
+    if($bInstall){
+        $oSetting = new Setting();
+        $oSetting->name = "cc_textcolor";
+        $oSetting->value = "#ffffff";
+        SettingManager::saveSetting($oSetting);
+    }
+}
+
+if(!Settings::exists('cc_btnbgcolor')){
+    $aLogs[$sModuleName]['errors'][] = 'Missing setting `cc_btnbgcolor`';
+    if($bInstall){
+        $oSetting = new Setting();
+        $oSetting->name = "cc_btnbgcolor";
+        $oSetting->value = "#E5114C";
+        SettingManager::saveSetting($oSetting);
+    }
+}
+
+if(!Settings::exists('cc_btntextcolor')){
+    $aLogs[$sModuleName]['errors'][] = 'Missing setting `cc_btntextcolor`';
+    if($bInstall){
+        $oSetting = new Setting();
+        $oSetting->name = "cc_btntextcolor";
+        $oSetting->value = "#ffffff";
+        SettingManager::saveSetting($oSetting);
+    }
+}
+
+if(!Settings::exists('cc_theme')){
+    $aLogs[$sModuleName]['errors'][] = 'Missing setting `cc_theme`';
+    if($bInstall){
+        $oSetting = new Setting();
+        $oSetting->name = "cc_theme";
+        $oSetting->value = "landgoedvoornedvoorn";
+        SettingManager::saveSetting($oSetting);
+    }
+}

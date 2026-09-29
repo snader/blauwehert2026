@@ -70,6 +70,7 @@ if (Request::param('ID') == 'bewerken' || Request::param('ID') == 'toevoegen') {
         // load data in object
         $oUsp->_load($_POST);
         $oUsp->link = Request::postVar('link') ? addHttp(Request::postVar('link')) : null;
+        $oUsp->textLine = Request::postVar('textLine') ? Request::postVar('textLine') : null;
 
         // if object is valid, save
         if ($oUsp->isValid()) {

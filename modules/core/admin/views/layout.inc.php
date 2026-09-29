@@ -56,6 +56,8 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Alertify -->
+    <link rel="stylesheet" href="/modules/core/admin/plugins/alertify/alertify.css">
     <!-- custom  -->
     <link rel="stylesheet" href="<?= getAdminCss('style') ?>?c=<?= time() ?>" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -115,34 +117,7 @@
                 <div class="content-header" style="display:none;">
                     <div class="container-fluid">
 
-                        <?php
-                        // TO CUSTOMER BUTTON RIGHT TOP
-                        if (isset($oLocation) && $oLocation->getCustomer()) {
-                        ?>
-                            <span class="float-sm-right">
-                                <a class="backBtn right" href="/customers/bewerken/?<?= $oLocation->getCustomer()->customerId ?>">
-                                    <button type="button" class="btn btn-default btn-sm" title="<?= sysTranslations::get('to_customer') ?> <?= _e($oLocation->getCustomer()->companyName) ?>">
-                                        <?= sysTranslations::get('to_customer') ?>
-                                    </button>
-                                </a>
-                            </span>
-                        <?php
-                        }
-                        ?>
-                        <div class="row mb-2">
-
-                            <div class="col-sm-12">
-                                <h1 class="m-0"><i aria-hidden="true" class="fa <?= !empty($oCurrentModule) ? $oCurrentModule->icon : 'fa-th-large' ?> "></i>&nbsp;<?= sysTranslations::get($oCurrentModule->linkName) ?>
-                                    <?php
-                                    if (isset($oLocation) && $oLocation->getCustomer()) {
-                                        echo ' - ' . _e($oLocation->getCustomer()->companyName);
-                                    }
-                                    ?>
-
-                                </h1>
-                            </div>
-
-                        </div>
+                    
 
                     </div><!-- /.container-fluid -->
                 </div>
@@ -217,6 +192,10 @@
 
         <!-- Select2 -->
         <script src="/plugins/select2/js/select2.full.min.js"></script>
+        <!-- jQuery tablesorter -->
+        <script src="/modules/core/admin/plugins/jquery-tablesorter.min.js"></script>
+        <!-- Alertify -->
+        <script src="/modules/core/admin/plugins/alertify/alertify.min.js"></script>
         <!--<script src="/plugins/dragscroll/dragscroll.js"></script>-->
 
         <!--<script src="/plugins/double-scroll/jquery.doubleScroll.js"></script>-->

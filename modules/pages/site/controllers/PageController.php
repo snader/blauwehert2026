@@ -18,8 +18,9 @@ class PageController extends CoreController implements MaintenanceInterface
             ->setTemplate('layout', 'core')
             ->getLayout();
 
-        # Get ViewPath
-        $oPageLayout->sViewPath = getSiteView('page_details', 'pages');
+        # Get ViewPath        
+        $oPageLayout->sViewPath = getSiteView('page', 'pages');
+       
     }
 
     /**

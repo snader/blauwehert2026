@@ -10,6 +10,8 @@ global $oPageLayout;
 $oPageLayout               = new PageLayout();
 $oPageLayout->sWindowTitle = sysTranslations::get('pages_manager');
 $oPageLayout->sModuleName  = sysTranslations::get('pages_manager');
+$oPageLayout->addJavascript(getSitePath('js/jsend.min.js'), 1);
+$oPageLayout->addJavascript('/modules/core/admin/plugins/tinyMCE/tinymce.min.js', 2);
 // max levels for page structure depth
 $iMaxLevels = Settings::get('pagesMaxLevels');
 

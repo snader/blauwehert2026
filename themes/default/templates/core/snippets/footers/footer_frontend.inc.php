@@ -1,73 +1,66 @@
 
 
-  <footer class="footer section-padding footer-dark">
-    <div class="container footer-grid">
-      <div>
-        <a href="/" class="brand-link footer-brand">
-          <div class="brand-mark footer-mark">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M18.5 3H6c-1.1 0-2 .9-2 2v5.71c0 3.83 2.95 7.18 6.78 7.29 3.96.12 7.22-3.06 7.22-7v-1h.5c1.93 0 3.5-1.57 3.5-3.5S20.43 3 18.5 3zM16 10c0 2.21-1.79 4-4 4s-4-1.79-4-4V5h8v5zm2.5 0H18V5h.5c.83 0 1.5.67 1.5 1.5S19.33 10 18.5 10z"></path>
-              <path d="M4 19h16v2H4z"></path>
-            </svg>
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+            <img src="/themes/default/images/logo-wakker-bier-wit.png" alt="Wakker Bier" width="40" height="40">
+            <span style="font-family:var(--font-heading); font-size:1.3rem; font-weight:800; color:#fff;">WAKKER BIER</span>
           </div>
-          <span>Roast &amp; Co.</span>
-        </a>
-        <p class="footer-copy">Artisan coffee roasters dedicated to sourcing, roasting, and serving the finest specialty coffees from around the world.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="Twitter">Twitter</a>
-          <a href="#" aria-label="Facebook">Facebook</a>
+          <p style="font-size:0.9rem; line-height:1.6; margin-bottom:16px;">
+            Wakker Bier is het initiatief van Internationaal Biersommelier Sander Voorn ter bevordering van de beleving van speciaalbier in Nederland.
+          </p>
+          <div class="rating-stars">★★★★★</div>
+          <span style="font-size:0.82rem; color:var(--text-muted); display:block; margin-top:4px;">5.0 van 5 op basis van 100+ deelnemers</span>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Bierproeverijen</h4>
+          <ul class="footer-links">
+            <li><a href="/bierproeverij-thuis">Bierproeverij Thuis</a></li>
+            <li><a href="/bierproeverij-zakelijk">Bierproeverij op het Werk</a></li>
+            <li><a href="/#pakketten">Bier &amp; Hapjes Pairing</a></li>
+            <li><a href="/#pakketten">Bier &amp; Kaas Proeverij</a></li>
+            <li><a href="/agenda">Agenda Publieke Events</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Informatie &amp; Regio's</h4>
+          <ul class="footer-links">
+            <li><a href="/over-biersommelier">Over Sander Voorn</a></li>
+            <li><a href="/locaties">Bierproeverij Amsterdam</a></li>
+            <li><a href="/locaties">Bierproeverij Utrecht</a></li>
+            <li><a href="/locaties">Bierproeverij Haarlem</a></li>
+            <li><a href="/locaties">Bierproeverij Aalsmeer</a></li>
+            <li><a href="/#faq">Veelgestelde Vragen</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Contact</h4>
+          <p style="margin-bottom:8px;"><strong>Sander Voorn</strong></p>
+          <p style="margin-bottom:8px;">📞 <a href="tel:<?= Settings::get('clientPhone') ?>"><?= Settings::get('clientPhone') ?></a></p>
+          <p style="margin-bottom:8px;">✉️ <a href="mailto:<?= Settings::get('clientEmail') ?>"><?= Settings::get('clientEmail') ?></a></p>
+          <p style="margin-bottom:8px;">📍 <?= Settings::get('clientAddress') ?></p>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:12px;">KVK: 82157219 | BTW: NL003333769B95</p>
         </div>
       </div>
 
-      <div class="footer-links">
-        <div>
-          <h4>Menu</h4>
-          <a href="/menu#espresso">Espresso Drinks</a>
-          <a href="/menu#pour-overs">Pour Overs</a>
-          <a href="/menu#cold">Cold Drinks</a>
-          <a href="/menu#pastries">Pastries</a>
-        </div>
-        <div>
-          <h4>Shop</h4>
-          <a href="/shop">Coffee Beans</a>
-          <a href="/shop#subscriptions">Subscriptions</a>
-          <a href="/shop#merch">Merchandise</a>
-          <a href="/shop#gift-cards">Gift Cards</a>
-        </div>
-        <div>
-          <h4>Company</h4>
-          <a href="#story">Our Story</a>
-          <a href="/locations">Locations</a>
-          <a href="/careers">Careers</a>
-          <a href="/privacy">Privacy Policy</a>
-        </div>
-      </div>
-
-      <div class="footer-details">
-        <div>
-          <h4>Hours</h4>
-          <p>Mon-Fri: 7am - 7pm</p>
-          <p>Sat-Sun: 8am - 6pm</p>
-        </div>
-        <div>
-          <h4>Contact</h4>
-          <p>hello@roastandco.com</p>
-          <p>(555) 234-5678</p>
-        </div>
-        <div>
-          <h4>Flagship Location</h4>
-          <p>123 Roastery Lane</p>
-          <p>Portland, OR 97201</p>
+      <div class="footer-bottom">
+        <div>&copy; <?= date('Y') ?> Wakker Bier (WakkerBier.nl). Alle rechten voorbehouden.</div>
+        <div style="display:flex; gap:16px;">
+          <a href="/contact">Contact</a>
+          <a href="/sitemap.xml">Sitemap</a>
         </div>
       </div>
     </div>
+  </footer>
 
-    <div class="footer-bottom">
-      <p>&copy; 2026 Roast &amp; Co. All rights reserved.</p>
-      <div class="footer-legal">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-      </div>
-    </div>
-  </footer>   
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/<?= Settings::get('clientPhone') ?>?text=Hallo%20Sander,%20ik%20heb%20een%20vraag%20over%20een%20bierproeverij!" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Chat direct via WhatsApp met Biersommelier Sander Voorn">
+    <span class="floating-whatsapp-tooltip">Direct WhatsApp contact met Sander</span>
+    <img src="/themes/default/images/whatsapp-logo.png" alt="WhatsApp" width="34" height="34">
+  </a>

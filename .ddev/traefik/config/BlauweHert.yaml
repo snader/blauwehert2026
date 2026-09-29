@@ -1,0 +1,123 @@
+#ddev-generated
+# If you remove the ddev-generated line above you
+# are responsible for maintaining this file. DDEV will not then
+# update it, for example if you add `additional_hostnames`, etc.
+
+http:
+  routers:
+    BlauweHert-xhgui-80-http:
+      entrypoints:
+        - http-8143
+      rule: HostRegexp(`^blauwehert\.ddev\.site$`)
+      
+      service: "BlauweHert-xhgui-80"
+      tls: false
+      # middlewares:
+      #   - "BlauweHert-redirectHttps"
+    BlauweHert-phpmyadmin-80-http:
+      entrypoints:
+        - http-8036
+      rule: HostRegexp(`^blauwehert\.ddev\.site$`)
+      
+      service: "BlauweHert-phpmyadmin-80"
+      tls: false
+      # middlewares:
+      #   - "BlauweHert-redirectHttps"
+    BlauweHert-web-80-http:
+      entrypoints:
+        - http-80
+      rule: HostRegexp(`^blauwehert\.ddev\.site$`)
+      
+      service: "BlauweHert-web-80"
+      tls: false
+      # middlewares:
+      #   - "BlauweHert-redirectHttps"
+    BlauweHert-web-8025-http:
+      entrypoints:
+        - http-8025
+      rule: HostRegexp(`^blauwehert\.ddev\.site$`)
+      
+      service: "BlauweHert-web-8025"
+      tls: false
+      # middlewares:
+      #   - "BlauweHert-redirectHttps"
+    
+    
+    BlauweHert-xhgui-80-https:
+      entrypoints:
+        - http-8142
+      rule: HostRegexp(`^blauwehert\.ddev\.site$`)
+      
+      service: "BlauweHert-xhgui-80"
+      
+      tls: true
+      
+    
+    BlauweHert-phpmyadmin-80-https:
+      entrypoints:
+        - http-8037
+      rule: HostRegexp(`^blauwehert\.ddev\.site$`)
+      
+      service: "BlauweHert-phpmyadmin-80"
+      
+      tls: true
+      
+    
+    
+    BlauweHert-web-80-https:
+      entrypoints:
+        - http-443
+      rule: HostRegexp(`^blauwehert\.ddev\.site$`)
+      
+      service: "BlauweHert-web-80"
+      
+      tls: true
+      
+    BlauweHert-web-8025-https:
+      entrypoints:
+        - http-8026
+      rule: HostRegexp(`^blauwehert\.ddev\.site$`)
+      
+      service: "BlauweHert-web-8025"
+      
+      tls: true
+      
+    
+
+  middlewares:
+    BlauweHert-redirectHttps:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  services:
+    BlauweHert-xhgui-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-BlauweHert-xhgui:80
+        
+    
+    BlauweHert-phpmyadmin-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-BlauweHert-phpmyadmin:80
+        
+    
+    BlauweHert-web-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-BlauweHert-web:80
+        
+    BlauweHert-web-8025:
+      loadbalancer:
+        servers:
+          - url: http://ddev-BlauweHert-web:8025
+        
+    
+    
+    
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/BlauweHert.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/BlauweHert.key

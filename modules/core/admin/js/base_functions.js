@@ -2128,13 +2128,29 @@ function setDefaultAutocomplete(selector, url, filter, renderItem, onAfterSelect
                     data: 'term=' + request.term + '&filter=' + encodeURIComponent(filter),
                     dataType: 'json',
                     success: function (result) {
-                        if (typeof JSend !== "undefined") {
-                            var jsend = JSend.parse(result);
+                        var data = [];
 
-                            var data = jsend.hasData() && jsend.getData().rows ? jsend.getData().rows : [];
-                        } else {
-                            var data = result;
+                        if (result && typeof result === 'object') {
+                            if (typeof JSend !== 'undefined' && typeof result.status !== 'undefined') {
+                                try {
+                                    var jsend = JSend.parse(result);
+                                    if (jsend.hasData() && jsend.getData() && jsend.getData().rows) {
+                                        data = jsend.getData().rows;
+                                    } else if (jsend.hasData() && jsend.getData()) {
+                                        data = jsend.getData();
+                                    }
+                                } catch (e) {
+                                    data = [];
+                                }
+                            } else if (result.rows) {
+                                data = result.rows;
+                            } else if (result.data && result.data.rows) {
+                                data = result.data.rows;
+                            } else if (Array.isArray(result)) {
+                                data = result;
+                            }
                         }
+
                         response(data);
                     }
                 });

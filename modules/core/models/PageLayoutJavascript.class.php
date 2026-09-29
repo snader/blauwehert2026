@@ -34,8 +34,11 @@ class PageLayoutJavascript
             if (!empty($aAttributes['src'])) {
                 $this->location = $aAttributes['src'];
             }
-        } elseif (preg_match('#^(/[a-zA-Z]+|https?://)#', $sData)) {
-            // direct link
+        } elseif (
+            preg_match('#^(?:/|https?://|//|\.\.?/|[A-Za-z0-9_./-]+\.(?:js|css)(?:\?.*)?)#', $sData)
+            && !preg_match('#\s#', $sData)
+        ) {
+            // direct link or relative asset path (e.g. themes/default/js/jsend.min.js)
             $this->location = $sData;
         } elseif (preg_match('#<script#', $sData)) {
             // regular script tag

@@ -45,16 +45,7 @@
     
     <?php
     if ($oCurrentUser) { ?>
-      <li class="nav-item">
-        <a class="nav-link" target="_blank" href="/dashboard/brewlog" title="Brewlogs (new tab)" role="button">
-          <i class="nav-icon fas fa-beer-mug-empty"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" target="_blank" href="/dashboard/products" title="Voorraad (new tab)" role="button" style="margin-right:50px;">
-          <i class="nav-icon fas fa-list"></i>
-        </a>
-      </li>
+      
       <li class="nav-item">
       <a class="nav-link" data-widget="fullscreen" href="#" title="Full screen" role="button">
         <i class="fas fa-expand-arrows-alt"></i>

@@ -1,4 +1,4 @@
-<nav id="navigation">
+<nav id="navigation" class="main-nav" aria-label="Hoofdnavigatie">
     <?php
     $aUrl = [];
 
@@ -6,7 +6,8 @@
     {
         global $aUrl;
         if (count($aPages) > 0) {
-            echo '<ul class="pageLinks">';
+            echo '<ul class="nav-list">
+            ';
             foreach ($aPages AS $oPage) {
                 $iLevel = $oPage->level;
 
@@ -17,9 +18,11 @@
                 }
 
                 // check if controller equals page urlPath be aware of special treathment for homepage!!
-                echo '<li class="' . ($aUrl[$oPage->level] == $oPage->getUrlPath() || '/' . http_get('controller') == $oPage->getUrlPath() . 'home' ? 'is-active' : '') . ($oPage->getSubPages()  ? ' has-sub' : '') . '"><a href="' . $oPage->getBaseUrlPath() . '">' . $oPage->getShortTitle() . '</a>';
+                echo '<li><a class="nav-link' . ($aUrl[$oPage->level] == $oPage->getUrlPath() || '/' . http_get('controller') == $oPage->getUrlPath() . 'home' ? ' active' : '') . '" href="' . $oPage->getBaseUrlPath() . '">' . $oPage->getShortTitle() . '</a>
+                ';
                 makeListTree($oPage->getSubPages()); //call function recursive
-                echo '</li>';
+                echo '</li>
+                ';
             }
             echo '</ul>';
         }
@@ -28,3 +31,4 @@
     makeListTree(PageManager::getPagesByFilter(['level' => 1, 'inMenu' => 1, 'languageId' => Locales::language()]));
     ?>
 </nav>
+

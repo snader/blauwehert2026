@@ -91,7 +91,8 @@ class AdvancedAdminController extends AdminController
 
         $oPageLayout->sWindowTitle = sysTranslations::get(static::$module);
         $oPageLayout->sModuleName  = sysTranslations::get(static::$module);
-        $oPageLayout->addJavascript(getSitePath('js/jsend.min.js', 'core'));
+        $oPageLayout->addJavascript(getSitePath('js/jsend.min.js', 'core'), 1);
+        $oPageLayout->addJavascript('/modules/core/admin/plugins/tinyMCE/tinymce.min.js', 2);
 
         Request::setParameterNames(
             [

@@ -1,420 +1,608 @@
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-tag">
+              <span>🍺</span> Dé Interactieve Bierbeleving van Nederland
+            </div>
+            <h1 class="hero-title">
+              Beleef een Unieke <span class="highlight">Bierproeverij</span> op Jouw Locatie
+            </h1>
+            <p class="hero-lead">
+              Geen droge stoffige presentaties, maar een gezellige, smaakvolle ontdekkingsreis vol humor, kennis en prachtige verhalen. Begeleid door gediplomeerd <strong>Internationaal Biersommelier <?= $config['sommelier_name'] ?></strong>.
+            </p>
 
+            <div class="hero-cta-box">
+              <a href="#prijscalculator" class="btn btn-primary btn-lg">
+                Bereken Prijs &amp; Pakket
+              </a>
+              <a href="https://wa.me/<?= Settings::get('clientPhone') ?>?text=Hallo%20Sander,%20ik%20heb%20interesse%20in%20een%20bierproeverij!" class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener">
+                WhatsApp Direct 💬
+              </a>
+            </div>
+            
+            <?php
+            if (!empty($aUsps)) { ?>
+            <div class="hero-usps">
+              <?php foreach ($aUsps as $oUsp) { ?>
+                <div class="hero-usp-item">
+                  <div class="usp-icon">✓</div>
+                  <span><?= $oUsp->textLine ?></span>
+                </div>
+              <?php
+              }
+              ?>
+            </div>
+              <?php
+            } ?>
+
+
+
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-image-wrapper">
+              <img src="/themes/default/images/hero-bierproeverij.jpg" alt="Gezellige bierproeverij met speciaalbieren en vrienden" width="580" height="480" fetchpriority="high">
+            </div>
+            <div class="hero-floating-card">
+              <img src="/themes/default/images/sander-voorn-biersommelier.png" alt="Sander Voorn Internationaal Biersommelier" class="sommelier-avatar" width="52" height="52">
+              <div class="floating-card-text">
+                <h5>Sander Voorn</h5>
+                <p>Gediplomeerd Internationaal Biersommelier</p>
+                <div class="rating-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI SEARCH DIRECT ANSWER BLOCK (GEO) -->
+    <section class="section" style="padding: 40px 0 0;">
+      <div class="container">
+        <div class="ai-answer-box">
+          <div class="ai-answer-header">
+            <span class="ai-pill">Kort &amp; Krachtig Overzicht</span>
+            <h2 class="ai-answer-title">Wat kun je verwachten van een bierproeverij met Wakker Bier?</h2>
+          </div>
+          <div class="ai-answer-content">
+            <p>
+              Bij <strong><?= Settings::get('clientName') ?></strong> verzorgt gediplomeerd Internationaal Biersommelier Sander Voorn complete bierproeverijen op maat in heel Nederland (bij u thuis, op het werk of op feestlocaties). Tijdens de circa 2,5 uur durende interactieve sessie proeven deelnemers 6 met zorg geselecteerde speciaalbieren, vergezeld door anekdotes over biercultuur, brouwgeheimen en eventueel foodpairing (kazen en hapjes). Sander neemt alle proefglazen, waterglazen en presentatiematerialen mee en laat de locatie na afloop weer volledig schoon achter.
+            </p>
+          </div>
+          <div class="ai-answer-highlights">
+            <div class="ai-highlight-item">
+              <strong>Tarief</strong>
+              Vanaf <?= format_price($packages['klassiek']['price_per_person']) ?> p.p. (excl. btw)
+            </div>
+            <div class="ai-highlight-item">
+              <strong>Groepsgrootte</strong>
+              Vanaf <?= $pricing_config['min_persons'] ?> tot 100+ personen
+            </div>
+            <div class="ai-highlight-item">
+              <strong>Duur</strong>
+              Gemiddeld 2,5 uur vol interactie
+            </div>
+            <div class="ai-highlight-item">
+              <strong>Locatie</strong>
+              Heel Nederland (op eigen locatie)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAKKETTEN & PRIJZEN -->
+    <section class="section section-dark" id="pakketten">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Transparante Tarieven</span>
+          <h2 class="section-title">Onze Populaire Bierproeverij Pakketten</h2>
+          <p class="section-description">
+            Kies het arrangement dat past bij jouw gezelschap. Elk pakket bevat 6 speciale bieren, professionele proefglazen en bevlogen begeleiding door Biersommelier <?= $config['sommelier_name'] ?>.
+          </p>
+        </div>
+
+        <div class="packages-grid">
+          <!-- Pakket 1: Klassiek -->
+          <div class="package-card">
+            <div class="package-header">
+              <h3 class="package-name"><?= $packages['klassiek']['short_name'] ?></h3>
+              <p class="package-desc"><?= $packages['klassiek']['description'] ?></p>
+            </div>
+            <div class="package-price-wrap">
+              <div class="package-price"><?= format_price_vanaf($packages['klassiek']['price_per_person']) ?></div>
+              <div class="package-price-meta">per persoon (excl. btw, vanaf <?= $pricing_config['min_persons'] ?> pers.)</div>
+            </div>
+            <ul class="package-features">
+              <?php foreach ($packages['klassiek']['features'] as $feature): ?>
+                <li><span class="check">✓</span> <?= $feature ?></li>
+              <?php endforeach; ?>
+            </ul>
+            <a href="#prijscalculator" class="btn btn-secondary" onclick="selectPackage('klassiek')"><?= $packages['klassiek']['cta_text'] ?></a>
+          </div>
+
+          <!-- Pakket 2: Met Hapjes (Featured) -->
+          <div class="package-card featured">
+            <span class="featured-badge"><?= $packages['hapjes']['badge'] ?> ⭐</span>
+            <div class="package-header">
+              <h3 class="package-name"><?= $packages['hapjes']['short_name'] ?></h3>
+              <p class="package-desc"><?= $packages['hapjes']['description'] ?></p>
+            </div>
+            <div class="package-price-wrap">
+              <div class="package-price"><?= format_price_vanaf($packages['hapjes']['price_per_person']) ?></div>
+              <div class="package-price-meta">per persoon (excl. btw, vanaf <?= $pricing_config['min_persons'] ?> pers.)</div>
+            </div>
+            <ul class="package-features">
+              <?php foreach ($packages['hapjes']['features'] as $feature): ?>
+                <li><span class="check">✓</span> <?= $feature ?></li>
+              <?php endforeach; ?>
+            </ul>
+            <a href="#prijscalculator" class="btn btn-primary" onclick="selectPackage('hapjes')"><?= $packages['hapjes']['cta_text'] ?></a>
+          </div>
+
+          <!-- Pakket 3: Met Kaas -->
+          <div class="package-card">
+            <div class="package-header">
+              <h3 class="package-name"><?= $packages['kaas']['short_name'] ?></h3>
+              <p class="package-desc"><?= $packages['kaas']['description'] ?></p>
+            </div>
+            <div class="package-price-wrap">
+              <div class="package-price"><?= format_price_vanaf($packages['kaas']['price_per_person']) ?></div>
+              <div class="package-price-meta">per persoon (excl. btw, vanaf <?= $pricing_config['min_persons'] ?> pers.)</div>
+            </div>
+            <ul class="package-features">
+              <?php foreach ($packages['kaas']['features'] as $feature): ?>
+                <li><span class="check">✓</span> <?= $feature ?></li>
+              <?php endforeach; ?>
+            </ul>
+            <a href="#prijscalculator" class="btn btn-secondary" onclick="selectPackage('kaas')"><?= $packages['kaas']['cta_text'] ?></a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIEVE PRIJSCALCULATOR MET GROEPSKORTING -->
+    <section class="section" id="prijscalculator">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Directe Indicatie</span>
+          <h2 class="section-title">Bereken Jouw Bierproeverij Prijs</h2>
+          <p class="section-description">
+            Kies het aantal personen en je gewenste arrangement. Je ziet direct de investering inclusief automatische <strong>5% groepskorting vanaf persoon 21</strong>.
+          </p>
+        </div>
+
+        <div class="calculator-container">
+          <div class="calc-grid">
+            <div class="calc-controls">
+              <!-- Groepsgrootte -->
+              <div class="calc-control-group">
+                <div class="calc-label">
+                  <span>1. Aantal Deelnemers</span>
+                  <span id="calcPersonsCount" style="color: var(--amber-primary); font-size: 1.2rem; font-weight:700;">10</span>
+                </div>
+                <div class="calc-range-wrapper">
+                  <input type="range" id="calcPersonsRange" class="calc-range" min="<?= $pricing_config['min_persons'] ?>" max="60" value="<?= $pricing_config['default_persons'] ?>" step="1">
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:var(--text-muted); margin-top:6px;">
+                  <span><?= $pricing_config['min_persons'] ?> personen (min.)</span>
+                  <span style="color:var(--gold-accent);">⭐ 21+ pers. (5% korting)</span>
+                  <span>60+ personen</span>
+                </div>
+              </div>
+
+              <!-- Arrangement keuze -->
+              <div class="calc-control-group">
+                <div class="calc-label">
+                  <span>2. Kies Arrangement</span>
+                </div>
+                <div class="calc-options-grid">
+                  <?php foreach ($packages as $pkgKey => $pkg): ?>
+                    <button type="button" class="calc-option-btn<?= ($pkgKey === 'klassiek') ? ' active' : '' ?>" data-id="<?= $pkgKey ?>" data-price="<?= $pkg['price_per_person'] ?>" data-name="<?= htmlspecialchars($pkg['name']) ?>">
+                      <span class="calc-option-title"><?= htmlspecialchars($pkg['short_name']) ?></span>
+                      <span class="calc-option-sub"><?= format_price_vanaf($pkg['price_per_person']) ?> p.p. • <?= htmlspecialchars($pkg['subtitle']) ?></span>
+                    </button>
+                  <?php endforeach; ?>
+                </div>
+              </div>
+            </div>
+
+            <!-- Samenvatting Box -->
+            <div class="calc-summary-box">
+              <div>
+                <h3 class="calc-summary-title">Boek een proeverij</h3>
+                <div class="calc-breakdown-row">
+                  <span>Gekozen pakket:</span>
+                  <span id="calcSummaryPackage" style="color:#fff; font-weight:600;"><?= $packages['klassiek']['name'] ?></span>
+                </div>
+                <div class="calc-breakdown-row">
+                  <span>Grootte groep:</span>
+                  <span id="calcSummaryPersons" style="color:#fff; font-weight:600;">10 personen</span>
+                </div>
+                <div class="calc-breakdown-row">
+                  <span>Basistarief per persoon:</span>
+                  <span id="calcSummaryPerPerson" style="color:#fff; font-weight:600;"><?= format_price($packages['klassiek']['price_per_person']) ?></span>
+                </div>
+
+                <!-- Dynamische Groepskorting Rij -->
+                <div class="calc-breakdown-row" id="calcDiscountRow" style="display:none; color:var(--gold-accent); background:rgba(217,119,6,0.12); padding:6px 10px; border-radius:6px; margin:4px 0;">
+                  <span id="calcDiscountLabel">🎉 5% Groepskorting (persoon 21+):</span>
+                  <span id="calcSummaryDiscount" style="font-weight:700;">-€0.00</span>
+                </div>
+
+                <div class="calc-breakdown-row">
+                  <span>Subtotaal (excl. btw):</span>
+                  <span id="calcSummarySubtotal">€260.00</span>
+                </div>
+                <div class="calc-breakdown-row">
+                  <span>Btw (21%):</span>
+                  <span id="calcSummaryVat">€54.60</span>
+                </div>
+                <div class="calc-breakdown-row total">
+                  <span>Totaal (incl. btw):</span>
+                  <span class="calc-total-amount" id="calcSummaryTotal">€314.60</span>
+                </div>
+                <p class="calc-note">
+                  * Dit is een <u>prijsindicatie</u>; inclusief biersommelier, 6 bieren, glazen en mooi verhalen. Vanaf 21 personen geldt 5% korting op iedere extra deelnemer! Binnen regio Aalsmeer / Schiphol geen reiskosten; daarbuiten in overleg.
+                </p>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <button type="button" id="calcApplyBtn" class="btn btn-primary">
+                  Vul Formulier in met Deze Keuze 📝
+                </button>
+                <a id="calcWhatsAppBtn" href="https://wa.me/<?= $config['phone_raw'] ?>" class="btn btn-whatsapp" target="_blank" rel="noopener">
+                  Vraag Direct via WhatsApp Aan 💬
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIERSTIJLEN & FOODPAIRING EXPLORER -->
+    <section class="section" id="bierstijlen">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Smaak &amp; Kennis</span>
+          <h2 class="section-title">Ontdek de Veelzijdigheid van Bierstijlen</h2>
+          <p class="section-description">
+            Tijdens de bierproeverijen duiken we in een breed spectrum aan stijlen. Hieronder zie je enkele favorieten die regelmatig de revue passeren.
+          </p>
+        </div>
+
+        <div class="beer-styles-grid">
+          <!-- Weizen -->
+          <div class="beer-style-card">
+            <div class="beer-style-header">
+              <h3 class="beer-style-name">Hefe Weizen</h3>
+              <span class="beer-tag">Fris &amp; Fruitig</span>
+            </div>
+            <p style="font-size: 0.9rem; color:var(--text-muted); margin-bottom:12px;">
+              Duits tarwebier met herkenbare aroma's van banaan en kruidnagel door de speciale giststammen.
+            </p>
+            <div class="beer-specs">
+              <span class="beer-spec-pill">ABV: 5.0 - 5.5%</span>
+              <span class="beer-spec-pill">IBU: 12 - 15</span>
+              <span class="beer-spec-pill">EBC: 6 - 12</span>
+            </div>
+            <div class="beer-pairing-tip">
+              🧀 <strong>Pairing tip:</strong> Zachte geitenkaas of milde jonge boerenkaas.
+            </div>
+          </div>
+
+          <!-- IPA -->
+          <div class="beer-style-card">
+            <div class="beer-style-header">
+              <h3 class="beer-style-name">India Pale Ale (IPA)</h3>
+              <span class="beer-tag">Hopbitter &amp; Citrus</span>
+            </div>
+            <p style="font-size: 0.9rem; color:var(--text-muted); margin-bottom:12px;">
+              Rijk aan aromatische hoppen die tonen van tropisch fruit, grapefruit, hars en een frisse bitterheid geven.
+            </p>
+            <div class="beer-specs">
+              <span class="beer-spec-pill">ABV: 6.0 - 7.5%</span>
+              <span class="beer-spec-pill">IBU: 40 - 70</span>
+              <span class="beer-spec-pill">EBC: 12 - 25</span>
+            </div>
+            <div class="beer-pairing-tip">
+              🧀 <strong>Pairing tip:</strong> Pittige oude kaas, spicy bitterballen of blue stilton.
+            </div>
+          </div>
+
+          <!-- Tripel -->
+          <div class="beer-style-card">
+            <div class="beer-style-header">
+              <h3 class="beer-style-name">Belgische Tripel</h3>
+              <span class="beer-tag">Krachtig &amp; Kruidig</span>
+            </div>
+            <p style="font-size: 0.9rem; color:var(--text-muted); margin-bottom:12px;">
+              Goudblond, volmondig met lichte moutzoetheid, kruidigheid en een verwarmende alcoholtoets.
+            </p>
+            <div class="beer-specs">
+              <span class="beer-spec-pill">ABV: 8.0 - 9.5%</span>
+              <span class="beer-spec-pill">IBU: 25 - 35</span>
+              <span class="beer-spec-pill">EBC: 8 - 14</span>
+            </div>
+            <div class="beer-pairing-tip">
+              🧀 <strong>Pairing tip:</strong> Abdijkaas, droge worst of geroosterde noten.
+            </div>
+          </div>
+
+          <!-- Stout / Porter -->
+          <div class="beer-style-card">
+            <div class="beer-style-header">
+              <h3 class="beer-style-name">Imperial Stout</h3>
+              <span class="beer-tag">Koffie &amp; Chocolade</span>
+            </div>
+            <p style="font-size: 0.9rem; color:var(--text-muted); margin-bottom:12px;">
+              Diepzwart bier gebrouwen met donker gebrande mouten, resulterend in espresso- en pure chocoladetonen.
+            </p>
+            <div class="beer-specs">
+              <span class="beer-spec-pill">ABV: 8.5 - 11.0%</span>
+              <span class="beer-spec-pill">IBU: 45 - 65</span>
+              <span class="beer-spec-pill">EBC: 80 - 140</span>
+            </div>
+            <div class="beer-pairing-tip">
+              🍫 <strong>Pairing tip:</strong> Pure chocolade (70%+), blauwaderkaas of stoofvlees.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS & ERVARINGEN -->
+    <section class="section section-dark" id="reviews">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Beoordelingen</span>
+          <h2 class="section-title">Wat Zeggen Deelnemers Over Onze Bierproeverijen?</h2>
+          <p class="section-description">
+            Met meer dan <strong><?= $config['review_count'] ?> tevreden bierproevers</strong> en een gemiddelde waardering van <strong>5.0 sterren</strong> garanderen wij een geslaagde middag of avond.
+          </p>
+        </div>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="rating-stars" style="margin-bottom:14px;">★★★★★</div>
+            <p class="review-text">
+              "Sander neemt je mee in een verhaal over bieren, geschiedenis en smaken. Enthousiast deelt hij zijn rijke kennis over bieren en serveert hapjes per bier, waardoor smaken versterken of verfijnen. Letterlijk en figuurlijk een heerlijke ervaring!"
+            </p>
+            <div class="review-author-info">
+              <div>
+                <div class="author-name">Leonie Pastoors</div>
+                <div class="author-meta">Papenveer • Vriendengroep</div>
+              </div>
+              <span style="font-size:0.8rem; color:var(--success-green); font-weight:700;">✓ Geverifieerd</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="rating-stars" style="margin-bottom:14px;">★★★★★</div>
+            <p class="review-text">
+              "Wat een onverwacht gezellige bierproeverij! Ik ben zelf helemaal geen echte bierdrinker, maar zelfs dan is dit ontzettend leuk om te doen. Sander vertelde op een leuke en enthousiaste manier over alle biertjes en bij ieder bier zat een heerlijk passend hapje."
+            </p>
+            <div class="review-author-info">
+              <div>
+                <div class="author-name">Carolien</div>
+                <div class="author-meta">Aalsmeer • Familieproeverij</div>
+              </div>
+              <span style="font-size:0.8rem; color:var(--success-green); font-weight:700;">✓ Geverifieerd</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="rating-stars" style="margin-bottom:14px;">★★★★★</div>
+            <p class="review-text">
+              "Inmiddels heeft Sander een 4e uitverkochte proeverij bij Eetcafé 't Juffertje verzorgd voor 50 bierliefhebbers. En voor de 4e keer was het zeer geslaagd! Sander is een absolute aanrader met fantastische verhalen en mooie bieren."
+            </p>
+            <div class="review-author-info">
+              <div>
+                <div class="author-name">Eetcafé 't Juffertje</div>
+                <div class="author-meta">Noordeinde • Publieksevent (50 pers.)</div>
+              </div>
+              <span style="font-size:0.8rem; color:var(--success-green); font-weight:700;">✓ Geverifieerd</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Vraag &amp; Antwoord</span>
+          <h2 class="section-title">Veelgestelde Vragen Over Bierproeverijen</h2>
+          <p class="section-description">
+            Vind snel antwoord op vragen over de organisatie, tarieven, locaties en mogelijkheden.
+          </p>
+        </div>
+
+        <div class="city-search-box" style="margin-bottom: 24px;">
+          <input type="text" id="faqSearchInput" class="city-search-input" placeholder="Zoek in veelgestelde vragen...">
+          <span class="city-search-icon">🔍</span>
+        </div>
+
+        <div class="faq-filter-group">
+          <button type="button" class="faq-filter-btn active" data-category="all">Alles</button>
+          <button type="button" class="faq-filter-btn" data-category="proeverij">De Proeverij</button>
+          <button type="button" class="faq-filter-btn" data-category="tarieven">Tarieven &amp; Boeking</button>
+          <button type="button" class="faq-filter-btn" data-category="locatie">Locatie &amp; Praktisch</button>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item" data-category="proeverij">
+            <button class="faq-question" type="button">
+              <span>Wat houdt een bierproeverij van Wakker Bier precies in?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Een bierproeverij bij Wakker Bier is een interactieve en ontspannen ontdekkingsreis door de wereld van bier. Onder leiding van gediplomeerd Biersommelier Sander Voorn proef je 6 verschillende speciaalbieren. Je leert hoe je bier beoordeelt op geur, kleur en smaak, en hoort de bijzondere verhalen achter de brouwers en bierstijlen.
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="tarieven">
+            <button class="faq-question" type="button">
+              <span>Wat zijn de kosten per persoon?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              De basis bierproeverij (6 bieren, proefglazen, verhalen) begint <?= format_price_vanaf($packages['klassiek']['price_per_person']) ?> p.p. (excl. btw). Uitbreiding met bijpassende hapjes <?= format_price_vanaf($packages['hapjes']['price_per_person']) ?> p.p., met ambachtelijke kazen <?= format_price_vanaf($packages['kaas']['price_per_person']) ?> p.p. Dit geldt bij een minimale groepsgrootte van <?= $pricing_config['min_persons'] ?> personen. Vanaf 21 personen geldt bovendien een automatische 5% groepskorting!
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="locatie">
+            <button class="faq-question" type="button">
+              <span>Wat moeten wij zelf regelen op de locatie?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Vrijwel niets! Sander neemt alle bieren, speciale proefglazen, waterglazen en presentatiemateriaal mee. Het enige wat je nodig hebt is een tafel met stoelen voor je gasten en wat water om glazen te spoelen. Na afloop gaat alles weer mee retour.
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="proeverij">
+            <button class="faq-question" type="button">
+              <span>Kunnen mensen die minder bier drinken of alcoholvrij willen ook meedoen?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Zeker! In overleg kunnen we uitstekende alcoholvrije of alcoholarme kwaliteitsbieren serveren. Bovendien merken we regelmatig dat mensen die dachten geen bierliefhebber te zijn, juist enorm verrast worden door de subtiele smaken van speciaalbier.
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="locatie">
+            <button class="faq-question" type="button">
+              <span>Komt Wakker Bier naar onze woonplaats?</span>
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              Ja, wij verzorgen bierproeverijen door heel Nederland. Van Amsterdam, Utrecht, Haarlem en Aalsmeer tot Rotterdam, Den Haag, Alkmaar, Amersfoort en verder.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     
-    <section class="hero section-padding section-hero">
-      <div class="container hero-grid">
-        <div class="hero-copy" data-animate>
-          <span class="eyebrow">Specialty Coffee Roasters</span>
-          <h1><?= $oPage->title ?></h1>
-          <p>From bean to cup, we obsess over every detail. Experience specialty coffee the way it was meant to be — fresh-roasted, expertly brewed, and served with care.</p>
-          <div class="hero-actions">
-            <a href="#menu" class="btn btn-primary">View Our Menu</a>
-            <a href="/shop" class="btn btn-secondary">Order Online</a>
-          </div>
-        </div>
 
-        <div class="hero-visual" data-animate data-delay="100">
-          <div class="hero-card">
-            <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/hero-coffee.jpg" alt="Specialty coffee">
-            <div class="hero-glow hero-glow-accent"></div>
-            <div class="hero-glow hero-glow-soft"></div>
-          </div>
-        </div>
-      </div>
-
-      <a href="#menu" class="scroll-link" data-animate>
-        <span>Scroll</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 14l-7 7-7-7"></path>
-          <path d="M12 3v18"></path>
-        </svg>
-      </a>
-    </section>
-
-    <section id="menu" class="section-padding section-menu">
+    <!-- CONTACT & BOEKINGSFORMULIER -->
+    <section class="section" id="contact">
       <div class="container">
-        <div class="section-header" data-animate>
-          <h2>Our Menu</h2>
-          <p>Handcrafted drinks and fresh-baked goods, made with love</p>
+        <div class="section-header">
+          <span class="section-subtitle">Vrijblijvend Contact</span>
+          <h2 class="section-title">Reserveer Jouw Datum of Vraag Informatie Aan</h2>
+          <p class="section-description">
+            Vul onderstaand formulier in en <?= $config['sommelier_name'] ?> neemt binnen 24 uur persoonlijk contact met je op. Direct antwoord nodig? Stuur gerust een WhatsApp bericht!
+          </p>
         </div>
 
-        <div class="menu-categories">
-          <article class="category-card" data-animate data-delay="0">
-            <div class="category-header">
+        <div class="contact-grid">
+          <!-- Info kolom -->
+          <div class="contact-info-card">
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color:#fff;">Contactgegevens</h3>
+            
+            <div class="contact-detail-row">
+              <div class="contact-icon-box">📞</div>
               <div>
-                <h3>Espresso Drinks</h3>
-                <p>Crafted with our signature house blend</p>
+                <strong style="color:#fff; display:block;">Telefoon &amp; WhatsApp:</strong>
+                <a href="tel:<?= $config['phone_raw'] ?>"><?= $config['phone_display'] ?></a>
               </div>
             </div>
-            <div class="item-grid">
-              <article class="menu-item">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/espresso.jpg" alt="Espresso">
-                <div>
-                  <div class="item-title">
-                    <h4>Espresso</h4>
-                    <span>$3.50</span>
-                  </div>
-                  <p>Rich, bold, and perfectly extracted</p>
-                </div>
-              </article>
-              <article class="menu-item">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/cortado.jpg" alt="Cortado">
-                <div>
-                  <div class="item-title">
-                    <h4>Cortado</h4>
-                    <span>$4.50</span>
-                  </div>
-                  <p>Equal parts espresso and steamed milk</p>
-                </div>
-              </article>
-              <article class="menu-item popular-card">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/cappuccino.jpg" alt="Cappuccino">
-                <div>
-                  <div class="item-title">
-                    <h4>Cappuccino</h4>
-                    <span>$5.00</span>
-                  </div>
-                  <p>Velvety foam with a double shot</p>
-                  <span class="badge">Popular</span>
-                </div>
-              </article>
-            </div>
-          </article>
 
-          <article class="category-card" data-animate data-delay="100">
-            <div class="category-header">
+            <div class="contact-detail-row">
+              <div class="contact-icon-box">✉️</div>
               <div>
-                <h3>Pour Overs</h3>
-                <p>Single-origin beans, brewed to order</p>
+                <strong style="color:#fff; display:block;">E-mailadres:</strong>
+                <a href="mailto:<?= $config['email'] ?>"><?= $config['email'] ?></a>
               </div>
             </div>
-            <div class="item-grid">
-              <article class="menu-item">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/ethiopian.jpg" alt="Ethiopian Yirgacheffe">
-                <div>
-                  <div class="item-title">
-                    <h4>Ethiopian Yirgacheffe</h4>
-                    <span>$6.00</span>
-                  </div>
-                  <p>Floral, citrus, and tea-like</p>
-                  <div class="tag-row">
-                    <span>Bergamot</span>
-                    <span>Jasmine</span>
-                    <span>Lemon</span>
-                  </div>
-                </div>
-              </article>
-              <article class="menu-item popular-card">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/colombian.jpg" alt="Colombian Huila">
-                <div>
-                  <div class="item-title">
-                    <h4>Colombian Huila</h4>
-                    <span>$5.50</span>
-                  </div>
-                  <p>Caramel, red apple, and milk chocolate</p>
-                  <div class="tag-row">
-                    <span>Popular</span>
-                    <span>Caramel</span>
-                    <span>Apple</span>
-                    <span>Chocolate</span>
-                  </div>
-                </div>
-              </article>
-              <article class="menu-item">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/guatemalan.jpg" alt="Guatemalan Antigua">
-                <div>
-                  <div class="item-title">
-                    <h4>Guatemalan Antigua</h4>
-                    <span>$5.50</span>
-                  </div>
-                  <p>Smoky, cocoa, and spice</p>
-                  <div class="tag-row">
-                    <span>Cocoa</span>
-                    <span>Smoke</span>
-                    <span>Spice</span>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </article>
 
-          <article class="category-card" data-animate data-delay="200">
-            <div class="category-header">
+            <div class="contact-detail-row">
+              <div class="contact-icon-box">🏠</div>
               <div>
-                <h3>Cold Drinks</h3>
-                <p>Refreshing and smooth</p>
+                <strong style="color:#fff; display:block;">Locatie &amp; Werkgebied:</strong>
+                <span><?= $config['address_street'] ?>, <?= $config['address_zip'] ?> <?= $config['address_city'] ?><br><small style="color:var(--text-muted);">(Proeverijen vinden plaats op jouw eigen locatie in heel Nederland)</small></span>
               </div>
             </div>
-            <div class="item-grid">
-              <article class="menu-item popular-card">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/cold-brew.jpg" alt="Cold Brew">
-                <div>
-                  <div class="item-title">
-                    <h4>Cold Brew</h4>
-                    <span>$5.00</span>
-                  </div>
-                  <p>18-hour steeped perfection</p>
-                  <span class="badge">Popular</span>
-                </div>
-              </article>
-              <article class="menu-item">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/iced-latte.jpg" alt="Iced Latte">
-                <div>
-                  <div class="item-title">
-                    <h4>Iced Latte</h4>
-                    <span>$5.50</span>
-                  </div>
-                  <p>Espresso over ice with cold milk</p>
-                </div>
-              </article>
-              <article class="menu-item">
-                <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/nitro.jpg" alt="Nitro Cold Brew">
-                <div>
-                  <div class="item-title">
-                    <h4>Nitro Cold Brew</h4>
-                    <span>$6.00</span>
-                  </div>
-                  <p>Creamy, cascading, on tap</p>
-                </div>
-              </article>
-            </div>
-          </article>
-        </div>
 
-        <div class="section-cta" data-animate>
-          <a href="/menu" class="btn btn-secondary outline">View Full Menu</a>
-        </div>
-      </div>
-    </section>
+            <div class="contact-detail-row">
+              <div class="contact-icon-box">📜</div>
+              <div>
+                <strong style="color:#fff; display:block;">KVK &amp; Btw:</strong>
+                <span>KVK: 82157219 • BTW: NL003333769B95</span>
+              </div>
+            </div>
 
-    <section id="story" class="section-padding section-story">
-      <div class="container story-grid">
-        <div class="story-image" data-animate>
-          <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/our-story.jpg" alt="Our story">
-          <div class="story-stats">
-            <div>
-              <span>15+</span>
-              <p>Years Roasting</p>
-            </div>
-            <div>
-              <span>12</span>
-              <p>Origin Countries</p>
-            </div>
-            <div>
-              <span>3</span>
-              <p>Portland Locations</p>
-            </div>
-            <div>
-              <span>50k+</span>
-              <p>Happy Customers</p>
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+              <a href="https://wa.me/<?= $config['phone_raw'] ?>?text=Hallo%20Sander,%20ik%20wil%20graag%20de%20beschikbaarheid%20voor%20een%20bierproeverij%20checken." class="btn btn-whatsapp" style="width: 100%;" target="_blank" rel="noopener">
+                <span>💬</span> WhatsApp Sander Direct
+              </a>
             </div>
           </div>
-        </div>
 
-        <div class="story-copy" data-animate data-delay="200">
-          <span class="eyebrow accent">Est. 2009</span>
-          <h2>From Portland, With Love</h2>
-          <p>What started as a small cart at the Saturday Market has grown into three beloved locations across Portland. But our mission remains the same: to source exceptional coffees, roast them with care, and share them with our community.</p>
-          <p>Every bag we roast tells a story — of the farmers who grew it, the land that nurtured it, and the hands that brought it to your cup. We believe coffee should be more than just caffeine; it should be an experience.</p>
-          <a href="/about" class="btn btn-primary">Learn More About Us</a>
-        </div>
-      </div>
-    </section>
+          <!-- Formulier kolom -->
+          <div class="contact-form">
+            <div id="formSuccessMessage" style="display:none; background:rgba(16, 185, 129, 0.15); border:1px solid var(--success-green); border-radius:var(--radius-sm); padding:16px; margin-bottom:20px; color:#fff;">
+              ✅ <strong>Bedankt voor je aanvraag!</strong> Sander neemt binnen 24 uur contact met je op. Wil je direct contact? Klik dan hieronder om via WhatsApp te schakelen:
+              <a id="formDirectWhatsApp" href="#" target="_blank" class="btn btn-whatsapp btn-sm" style="display:none; margin-top:10px;">Open WhatsApp Bericht</a>
+            </div>
 
-    <section id="process" class="section-padding section-process">
-      <div class="container">
-        <div class="section-header" data-animate>
-          <h2>From Origin to Cup</h2>
-          <p>Our commitment to quality at every step</p>
-        </div>
-
-        <div class="process-timeline">
-          <div class="timeline-line" aria-hidden="true"></div>
-          <article class="process-step" data-animate data-delay="0">
-            <div class="step-marker">1</div>
-            <div class="step-content">
-              <div class="step-meta">
-                <span class="step-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.055 11H5a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2 2 2 0 0 1 2 2v2.945M8 3.935V5.5A2.5 2.5 0 0 0 10.5 8h.5a2 2 0 0 1 2 2 2 2 0 1 0 4 0 2 2 0 0 1 2-2h1.064M15 20.488V18a2 2 0 0 1 2-2h3.064M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path></svg>
-                </span>
-                <span>Step 1</span>
+            <form id="bookingForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="formNaam" class="form-label">Je Naam *</label>
+                  <input type="text" id="formNaam" class="form-control" placeholder="Bijv. Mark Jansen" required>
+                </div>
+                <div class="form-group">
+                  <label for="formEmail" class="form-label">Je E-mailadres *</label>
+                  <input type="email" id="formEmail" class="form-control" placeholder="naam@voorbeeld.nl" required>
+                </div>
               </div>
-              <h3>Sourcing</h3>
-              <p>We partner directly with farmers across the coffee belt, ensuring fair prices and sustainable practices.</p>
-            </div>
-          </article>
-          <article class="process-step" data-animate data-delay="100">
-            <div class="step-marker">2</div>
-            <div class="step-content">
-              <div class="step-meta">
-                <span class="step-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.657 18.657A8 8 0 0 1 6.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0 1 20 13a7.975 7.975 0 0 1-2.343 5.657z"></path><path d="M9.879 16.121A3 3 0 1 0 12.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
-                </span>
-                <span>Step 2</span>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="formTelefoon" class="form-label">Telefoonnummer *</label>
+                  <input type="tel" id="formTelefoon" class="form-control" placeholder="06 - 12345678" required>
+                </div>
+                <div class="form-group">
+                  <label for="formAantal" class="form-label">Aantal Personen</label>
+                  <input type="number" id="formAantal" class="form-control" placeholder="Bijv. 12" min="<?= $pricing_config['min_persons'] ?>">
+                </div>
               </div>
-              <h3>Roasting</h3>
-              <p>Small-batch roasting in our Portland facility, where we develop each bean to its full potential.</p>
-            </div>
-          </article>
-          <article class="process-step" data-animate data-delay="200">
-            <div class="step-marker">3</div>
-            <div class="step-content">
-              <div class="step-meta">
-                <span class="step-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.428 15.428a2 2 0 0 0-1.022-.547l-2.387-.477a6 6 0 0 0-3.86.517l-.318.158a6 6 0 0 1-3.86.517L6.05 15.21a2 2 0 0 0-1.806.547M8 4h8l-1 1v5.172a2 2 0 0 0 .586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 0 0 9 10.172V5L8 4z"></path></svg>
-                </span>
-                <span>Step 3</span>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="formPakket" class="form-label">Gewenst Pakket</label>
+                  <select id="formPakket" class="form-control">
+                    <?php foreach ($packages as $pkgKey => $pkg): ?>
+                      <option value="<?= htmlspecialchars($pkg['name']) ?>"><?= htmlspecialchars($pkg['name']) ?> (<?= format_price($pkg['price_per_person']) ?> p.p.)</option>
+                    <?php endforeach; ?>
+                    <option value="Bierproeverij op het Werk / Teambuilding">Bierproeverij op het Werk (Op Maat)</option>
+                    <option value="Maatwerk / Grote Groep">Maatwerk / Overig</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="formDatum" class="form-label">Voorkeursdatum (indicatie)</label>
+                  <input type="date" id="formDatum" class="form-control">
+                </div>
               </div>
-              <h3>Cupping</h3>
-              <p>Rigorous quality control through daily cupping sessions to ensure consistency and excellence.</p>
-            </div>
-          </article>
-          <article class="process-step" data-animate data-delay="300">
-            <div class="step-marker">4</div>
-            <div class="step-content">
-              <div class="step-meta">
-                <span class="step-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0z"></path></svg>
-                </span>
-                <span>Step 4</span>
+
+              <div class="form-group">
+                <label for="formBericht" class="form-label">Plaats / Locatie &amp; Eventuele wensen</label>
+                <textarea id="formBericht" class="form-control" rows="4" placeholder="Bijv. Bierproeverij bij ons thuis in Amsterdam voor een 40e verjaardag. Graag ook 2 alcoholvrije opties."><?= isset($_GET["locatie"]) ? htmlentities($_GET["locatie"]) : '' ?></textarea>
               </div>
-              <h3>Serving</h3>
-              <p>From our hands to yours, every cup is crafted with care by our trained baristas.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <section class="section-padding section-product">
-      <div class="container">
-        <div class="section-header" data-animate>
-          <h2>Take It Home</h2>
-          <p>Fresh-roasted beans delivered to your door</p>
-        </div>
-
-        <div class="product-grid">
-          <article class="product-card" data-animate data-delay="0">
-            <span class="badge badge-shelf">Bestseller</span>
-            <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/house-blend.jpg" alt="House Blend">
-            <div class="product-copy">
-              <h3>House Blend</h3>
-              <p>Our signature blend with notes of chocolate, caramel, and toasted nuts</p>
-              <div class="product-footer">
-                <span>$18.00 / 12oz bag</span>
-                <button class="btn btn-small">Add to Cart</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card secondary" data-animate data-delay="100">
-            <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/single-origin.jpg" alt="Single Origin - Ethiopia">
-            <div class="product-copy">
-              <h3>Single Origin - Ethiopia</h3>
-              <p>Light roast with bright citrus and floral notes</p>
-              <div class="product-footer">
-                <span>$22.00 / 12oz bag</span>
-                <button class="btn btn-small">Add to Cart</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-animate data-delay="200">
-            <img src="<?php echo CLIENT_HTTP_URL; ?>/themes/default/images/decaf-blend.jpg" alt="Decaf Blend">
-            <div class="product-copy">
-              <h3>Decaf Blend</h3>
-              <p>All the flavor, none of the buzz</p>
-              <div class="product-footer">
-                <span>$19.00 / 12oz bag</span>
-                <button class="btn btn-small">Add to Cart</button>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="section-cta" data-animate>
-          <a href="/shop" class="btn btn-secondary outline">Shop All Coffee</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-padding">
-      <div class="container">
-        <div class="section-header" data-animate>
-          <h2>What People Are Saying</h2>
-          <p>Join thousands of happy coffee lovers</p>
-        </div>
-
-        <div class="testimonial-grid">
-          <article class="testimonial-card" data-animate data-delay="0">
-            <div class="stars">
-              <span>★★★★★</span>
-            </div>
-            <blockquote>
-              <p>"The best coffee I've ever had. Their Ethiopian pour-over is transcendent."</p>
-            </blockquote>
-            <div class="reviewer">
-              <div class="reviewer-icon">M</div>
-              <div>
-                <p class="reviewer-name">Michael Chen</p>
-                <p class="reviewer-role">Coffee Enthusiast</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="testimonial-card" data-animate data-delay="100">
-            <div class="stars">
-              <span>★★★★★</span>
-            </div>
-            <blockquote>
-              <p>"Finally, a coffee shop that takes their craft seriously. Worth every penny."</p>
-            </blockquote>
-            <div class="reviewer">
-              <div class="reviewer-icon">S</div>
-              <div>
-                <p class="reviewer-name">Sarah Williams</p>
-                <p class="reviewer-role">Food Blogger</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="testimonial-card" data-animate data-delay="200">
-            <div class="stars">
-              <span>★★★★★</span>
-            </div>
-            <blockquote>
-              <p>"I've been a subscriber for 2 years. The beans arrive fresh, and the variety keeps me excited."</p>
-            </blockquote>
-            <div class="reviewer">
-              <div class="reviewer-icon">D</div>
-              <div>
-                <p class="reviewer-name">David Park</p>
-                <p class="reviewer-role">Home Barista</p>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-padding section-subscribe">
-      <div class="container subscribe-card" data-animate>
-        <div class="subscribe-content">
-          <div class="subscribe-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8"></path>
-              <path d="M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <div>
-            <h2>Join the Club</h2>
-            <p>Get exclusive offers, brewing tips, and first access to new roasts. Plus, 10% off your first order.</p>
+              <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                Vrijblijvende Aanvraag Versturen 🚀
+              </button>
+            </form>
           </div>
         </div>
-        <form class="subscribe-form" id="subscribe-form">
-          <input type="email" name="email" placeholder="Enter your email" required>
-          <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
-        <p class="subscribe-note">Join 5,000+ coffee lovers. Unsubscribe anytime.</p>
       </div>
     </section>

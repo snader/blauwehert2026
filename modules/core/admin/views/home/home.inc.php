@@ -17,11 +17,7 @@
 
 <?php
 
-if ($oCurrentUser && $oCurrentUser->isAdmin()) {
-    include_once getAdminSnippet('dashboardAdmins');
-} else {
-    include_once getAdminSnippet('dashboardUsers'); 
-}
+include_once getAdminSnippet('dashboardAdmins');
 
 ?>
 

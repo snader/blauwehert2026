@@ -60,10 +60,10 @@ abstract class Model
                     ->isPublic()) {
                 if (is_array($mValue)) {
                     foreach ($mValue as &$value) {
-                        $value = ($bStripTags ? strip_tags($value) : $value);
+                        $value = ($bStripTags ? strip_tags($value ?? '') : $value);
                     }
                 } else {
-                    $mValue = ($bStripTags ? strip_tags($mValue) : $mValue);
+                    $mValue = ($bStripTags ? strip_tags($mValue ?? '') : $mValue);
                 }
                 $this->$sPropName = $mValue;
             }

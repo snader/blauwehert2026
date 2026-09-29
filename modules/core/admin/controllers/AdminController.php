@@ -26,12 +26,16 @@ abstract class AdminController extends CoreController
     {
         parent::init();
 
+        $oPageLayout = $this->getRenderEngine()->getLayout();
+        $oPageLayout->addJavascript(getSitePath('js/jsend.min.js'), 1);
+        $oPageLayout->addJavascript('/modules/core/admin/plugins/tinyMCE/tinymce.min.js', 2);
+
         $this->getRenderEngine()
             ->setVariables(
                 [
                     'aLocales' => LocaleManager::getLocalesByFilter(['showAll' => true]),
                 ]
-            )->getLayout()->addJavascript(getSitePath('js/jsend.min.js'));
+            );
     }
 
     /**

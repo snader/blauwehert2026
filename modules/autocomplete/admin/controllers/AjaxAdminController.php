@@ -48,9 +48,23 @@ class AjaxAdminController extends AdminController
      */
     public function get()
     {
-        $sSlaveModel  = sprintf('%1$sManager', Request::param('MasterModel'));
-        $sSlaveMethod = sprintf('get%1$sByFilter', $this->getPlural(Request::param('MasterModel')));
-        $aFilter      = json_decode(Request::postVar('filter'), JSON_OBJECT_AS_ARRAY);
+        $sSlaveModelName = Request::param('SlaveModel');
+        if (empty($sSlaveModelName)) {
+            $this->getRenderEngine()
+                ->clearVariables()
+                ->setVariables([
+                    'rows' => [],
+                ]);
+            $this->jsend();
+            return;
+        }
+
+        $sSlaveModel  = sprintf('%1$sManager', $sSlaveModelName);
+        $sSlaveMethod = sprintf('get%1$sByFilter', $this->getPlural($sSlaveModelName));
+        $aFilter      = json_decode((string) Request::postVar('filter') ?: '{}', true);
+        if (!is_array($aFilter)) {
+            $aFilter = [];
+        }
         $aFilter['q'] = Request::postVar('term');
         $aObjects     = $sSlaveModel::$sSlaveMethod($aFilter);
 
@@ -106,12 +120,25 @@ class AjaxAdminController extends AdminController
      */
     public function dataTable()
     {
-        $sMasterModel = sprintf('%1$sManager', Request::param('MasterModel'));
-        $sGetMethod   = sprintf('get%1$sById', Request::param('MasterModel'));
-        $oObject      = $sMasterModel::$sGetMethod(Request::param('MasterId'));
+        $sMasterModelName = Request::param('MasterModel');
+        $sMasterModel     = sprintf('%1$sManager', $sMasterModelName);
+        $sGetMethod       = sprintf('get%1$sById', $sMasterModelName);
+        $oObject          = $sMasterModel::$sGetMethod(Request::param('MasterId'));
 
-        $sSlaveMethod = sprintf('get%1$s', $this->getPlural(Request::param('SlaveModel')));
-        $aRelations   = $oObject->$sSlaveMethod('all');
+        $sSlaveModelName = Request::param('SlaveModel');
+        $sSlaveMethod    = sprintf('get%1$s', $this->getPlural($sSlaveModelName));
+        $aRelations      = $oObject && method_exists($oObject, $sSlaveMethod) ? $oObject->$sSlaveMethod('all') : [];
+
+        if (empty($aRelations) && $sSlaveModelName) {
+            $sSlaveManager = sprintf('%1$sManager', $sSlaveModelName);
+            $sSlaveFilter  = sprintf('get%1$sByFilter', $this->getPlural($sSlaveModelName));
+            if (class_exists($sSlaveManager) && method_exists($sSlaveManager, $sSlaveFilter)) {
+                $aRelations = $sSlaveManager::$sSlaveFilter([
+                    'pageId'  => Request::param('MasterId'),
+                    'showAll' => true,
+                ]);
+            }
+        }
 
         $sRender = $this->getRenderEngine()
             ->clearVariables()

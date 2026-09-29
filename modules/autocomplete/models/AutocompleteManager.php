@@ -98,6 +98,8 @@ class AutocompleteManager extends Model
     {
         return $this->getUrl(
             $this->getAction,
+            $this->masterModel,
+            $this->masterId,
             $this->slaveModel
         );
     }

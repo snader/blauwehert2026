@@ -61,7 +61,7 @@
         <div class="alert alert-danger errorColor " style="text-align: left; margin-bottom:10px;">Login mislukt : verkeerde logingegevens</b></div>
       <?php } ?>
 
-      <strong>'t Blauwe Hert login</strong></p>
+      <strong>Wakker Bier login</strong></p>
 
 
       <?php
